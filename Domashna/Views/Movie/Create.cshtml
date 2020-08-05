@@ -1,0 +1,238 @@
+﻿@model Domashna.Models.MovieViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<h1 class="text-center pt-5">Create</h1>
+<div class="container">
+    <h3 class="crud-title">Add a movie</h3>
+    <hr />
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <form asp-action="Create" name="moviecreate">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label">Title</label>
+                        <input asp-for="Title" class="form-control" placeholder="Enter title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label asp-for="YearOfRelease" class="control-label">Year of release</label>
+                                <input asp-for="YearOfRelease" class="form-control" placeholder="Enter year of release" />
+                                <span asp-validation-for="YearOfRelease" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label asp-for="IMBDScore" class="control-label">IMBD score</label>
+                                <input asp-for="IMBDScore" class="form-control" placeholder="Enter IMBD score" />
+                                <span asp-validation-for="IMBDScore" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-12 col-md-6">
+                            <label asp-for="GenreID" class="control-label">Genre name</label>
+                            @Html.DropDownListFor(x => Model.GenreID, new SelectList(Model.Genres, "Value", "Text"),
+                            htmlAttributes: new { @class = "form-control", id = "Genre" })
+                            <span asp-validation-for="GenreID" class="text-danger"></span>
+                            <input asp-for="GenreName" class="form-control" hidden id="GenreName" />
+                            <a class="btn btn-success btn-sm btn-add-new-custom text-white"
+                               data-toggle="modal" data-target="#GenreModal"> Add New Genre</a>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label asp-for="DirectorID" class="control-label">Director name</label>
+                            @Html.DropDownListFor(x => Model.DirectorID, new SelectList(Model.Directors, "Value", "Text"),
+                            htmlAttributes: new { @class = "form-control", id = "Director" })
+                            <span asp-validation-for="DirectorID" class="text-danger"></span>
+                            <input asp-for="DirectorName" class="form-control" hidden id="DirectorName" />
+                            <a class="btn btn-success btn-sm btn-add-new-custom text-white"
+                               data-toggle="modal" data-target="#DirectorModal"> Add New Director</a>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Price" class="control-label">Price</label>
+                                <input asp-for="Price" class="form-control" placeholder="Enter price" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Language" class="control-label">Language</label>
+                                <input asp-for="Language" class="form-control" placeholder="Enter language" />
+                                <span asp-validation-for="Language" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Country" class="control-label">Country</label>
+                        <input asp-for="Country" class="form-control" placeholder="Enter country of origin" />
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+
+                    <input type="hidden" asp-for="PhotoURL" hidden id="photoURL" />
+
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label">Description</label>
+                        <textarea asp-for="Description" rows="12" class="form-control" placeholder="Enter movie description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-block btn-primary" />
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-12 col-md-12">
+                            <label>Upload Photo - Movie Cover</label>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <div class="row">
+                                <input type="file" #file accept="image/*" id="photoUpload" />
+                                <button class="btn btn-custom-upload btn-block" id="uploadphoto">Upload Photo</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="GenreModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModelLabel">Add New Genre</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="CreateGenreName" class="control-label">Genre Name</label>
+                        <input asp-for="CreateGenreName" class="form-control" />
+                        <span asp-validation-for="CreateGenreName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="addNewGenre">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="DirectorModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModelLabel">Add New Director</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="CreateDirectorName" class="control-label">Publiser Name</label>
+                        <input asp-for="CreateDirectorName" class="form-control" />
+                        <span asp-validation-for="CreateDirectorName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CreateDirectorCountry" class="control-label">Country Name</label>
+                        <input asp-for="CreateDirectorCountry" class="form-control" />
+                        <span asp-validation-for="CreateDirectorCountry" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="addNewDirector">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</div>
+
+@section scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $("#Genre").change(function () {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            var textSelected = optionSelected.text();
+            $("#GenreName").val(textSelected);
+            console.log($("#GenreName").val(textSelected));
+        });
+        $("#Director").change(function () {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            var textSelected = optionSelected.text();
+            $("#DirectorName").val(textSelected);
+            console.log($("#DirectorName").val(textSelected));
+        });
+        $("#uploadphoto").click(function () {
+            var data = new FormData();
+            var files = $("#photoUpload").get(0).files;
+            if (files.length > 0) {
+                data.append("UploadedImage", files[0]);
+            }
+            $.ajax({
+                type: "POST",
+                url: "/Movie/UploadPhoto",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (data) {
+                    console.log(data.dbPath);
+                    $("#PhotoURL").val(data.dbPath);
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+        $("#addNewGenre").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Genre/CreateGenreAJAX",
+                data: { name: $("#CreateGenreName").val() },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $("#Genre").append("<option value=" + data.id + ">" + data.name + "</option>");
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+        $("#addNewDirector").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Director/CreateDirectorAJAX",
+                data: { name: $("#CreateDirectorName").val(), country: $("#CreateDirectorCountry").val() },
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $("#Director").append("<option value=" + data.id + ">" + data.name + "</option>");
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        });
+
+    </script>
+}

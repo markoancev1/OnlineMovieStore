@@ -1,0 +1,189 @@
+﻿@model Domashna.Models.MovieViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <button id="myBtn" title="Go to top">Top</button>
+
+<div class="custom-container pt-5">
+    <h2 class="text-center">Popular Movies!</h2>
+    <h6 class="mt-5 text-center"><em>Some of our most sold movies!</em></h6>
+    <div class="row">
+        @foreach (var item in Model.TopPopularMovies)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
+                <div class="card h-100">
+                    <img src="~/images/@item.PhotoURL" class="img-fluid" style="max-height: 350px;" />
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Title) </h5>
+                        <h6 class=""><em>by</em> @Html.DisplayFor(modelItem => item.DirectorName)</h6>
+                        <hr />
+                        <p class="card-text">Genre: @Html.DisplayFor(modelItem => item.GenreName)</p>
+                        <p class="card-text">IMDB Score: @Html.DisplayFor(modelItem => item.IMBDScore)</p>
+                        <p class="card-text">Price: $@Html.DisplayFor(modelItem => item.Price)</p>
+                        <button class="btn btn-secondary btn-block" id="addToListingMovieFromPopular" onclick="AddToListingMovie(@item.Id)">
+                            <i class="fas fa-plus"></i> &nbsp; Add To Listing Movie
+                        </button>
+                        <button class="btn btn-success btn-block" id="addToRentingMovieFromPopular" onclick="AddToRentingMovie(@item.Id)">
+                            <i class="fas fa-cart-plus"></i> &nbsp; Add To Renting Movie
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="custom-container pt-5">
+    <h2 class="text-center">@Model.BestSellingDirector.Name</h2>
+    <h6 class="text-center mt-5"><em>Popular movie by bestselling director, @Model.BestSellingDirector.Name!</em></h6>
+    <div class="row">
+        @foreach (var item in Model.TopPopularMoviesByBestSellingDirector)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
+                <div class="card h-100">
+                    <img src="~/images/@item.PhotoURL" class="img-fluid" style="max-height: 350px;" />
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Title) </h5>
+                        <h6 class=""><em>by</em> @Html.DisplayFor(modelItem => item.DirectorName)</h6>
+                        <hr />
+                        <p class="card-text">Genre: @Html.DisplayFor(modelItem => item.GenreName)</p>
+                        <p class="card-text">IMDB Score: @Html.DisplayFor(modelItem => item.IMBDScore)</p>
+                        <p class="card-text">Price: $@Html.DisplayFor(modelItem => item.Price)</p>
+                        <button class="btn btn-secondary btn-block" id="addToListingMovieFromPopularDirector" onclick="AddToListingMovie(@item.Id)">
+                            <i class="fas fa-plus"></i>  &nbsp; Add To Listing Movie
+                        </button>
+                        <button class="btn btn-success btn-block" id="addToRentingMovieFromPopularDirector" onclick="AddToRentingMovie(@item.Id)">
+                            <i class="fas fa-cart-plus"></i> &nbsp; Add To Renting Movie
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="custom-container pt-5">
+    <h2 class="text-center">All Movies!</h2>
+    <h6 class="text-center mt-5"><em>List of all movies!</em></h6>
+    <div class="row">
+        @foreach (var item in Model.AllMovies)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
+                <div class="card h-100">
+                    <img src="~/images/@item.PhotoURL" class="img-fluid" style="max-height: 350px;" />
+                    <div class="card-body">
+                        <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Title) </h5>
+                        <h6 class=""><em>by</em> @Html.DisplayFor(modelItem => item.DirectorName)</h6>
+                        <hr />
+                        <p class="card-text">Genre: @Html.DisplayFor(modelItem => item.GenreName)</p>
+                        <p class="card-text">IMDB Score: @Html.DisplayFor(modelItem => item.IMBDScore)</p>
+                        <p class="card-text">Price: $@Html.DisplayFor(modelItem => item.Price)</p>
+
+
+                        <button class="btn btn-secondary btn-block" id="addtolistingmovie" onclick="AddToListingMovie(@item.Id)">
+                            <i class="fas fa-plus"></i> &nbsp; Add To Listing Movie
+                        </button>
+
+
+                        <button class="btn btn-success btn-block" id="addToRentingMovie" onclick="AddToRentingMovie(@item.Id)">
+                            <i class="fas fa-cart-plus"></i> &nbsp; Add To Renting Movie
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+
+        jQuery(document).ready(function ($) {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 50) {
+                    $('#myBtn').fadeIn('slow');
+                } else {
+                    $('#myBtn').fadeOut('slow');
+                }
+            });
+            $('#myBtn').click(function () {
+                $("html, body").animate({ scrollTop: 0 }, 500);
+                return false;
+            });
+        });
+
+
+        $(document).ready(function () {
+
+            $("#searchmovie").keyup(function () {
+                var searchString = $("#searchmovie").val();
+                if (searchString.length >= 2) {
+                    window.location = 'Search/';
+                }
+            });
+
+        });
+
+        function AddToListingMovie(id) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/AddToListingMovie/" + id,
+                success: function (data) {
+                    if (data.data != "") {
+             //           window.location.reload();
+                        new Noty({
+                            type: 'alert',
+                            layout: 'bottomLeft',
+                            timeout: 3000,
+                            text: 'Successfully Added To Listing Movie',
+                            theme: 'sunset'
+                        }).show();
+                    } else {
+                        new Noty({
+                            type: 'error',
+                            layout: 'bottomLeft',
+                            timeout: 3000,
+                            progressBar: true,
+                            text: 'Movie Already Exists In The Listing Movie section',
+                            theme: 'sunset'
+                        }).show();
+                    }
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        };
+
+        function AddToRentingMovie(id) {
+            $.ajax({
+                type: "POST",
+                url: "/RentingMovie/AddToRentingMovie/" + id,
+                success: function (data) {
+                    console.log("Success");
+                    console.log(data);
+            //        window.location.reload();
+                    new Noty({
+                        type: 'success',
+                        layout: 'bottomLeft',
+                        timeout: 3000,
+                        text: 'Added To Renting Movie',
+                        theme: 'sunset'
+                    }).show();
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+
+    </script>
+
+}

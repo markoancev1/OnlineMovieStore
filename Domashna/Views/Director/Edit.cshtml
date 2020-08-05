@@ -1,0 +1,42 @@
+﻿@model Domashna.Data.Entities.Director
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="container pt-5">
+    <h3 class="crud-title">Edit a Director</h3>
+    <hr />
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <form asp-action="Edit" name="directoredit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter a Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Country" class="control-label">Country</label>
+                        <input asp-for="Country" class="form-control" placeholder="Enter a Country" />
+                        <span asp-validation-for="Country" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Popularity" class="control-label"></label>
+                        <select asp-for="Popularity">
+                            <option value="True">True</option>
+                            <option value="False">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-block btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

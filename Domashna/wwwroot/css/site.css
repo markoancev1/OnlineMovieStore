@@ -1,0 +1,195 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.height {
+    height: 740px;
+}
+
+.padding{
+    padding-top: 10px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #49a09d;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    border-radius: 25px;
+}
+
+.nav-item:hover {
+    background-color: #49a09d;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+    border-radius: 25px;
+}
+
+.img-card {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.something {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: 40px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: #5f2c82;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+    #myBtn:hover {
+        background-color: #49a09d;
+        -webkit-transition: all 500ms ease;
+        -moz-transition: all 500ms ease;
+        -o-transition: all 500ms ease;
+        transition: all 500ms ease;
+    }
+
+.center {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.background {
+    background: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%) no-repeat;
+    background-size: contain;
+}
+.custom-toggler {
+    background: #49a09d;
+}
+
+
+.custom-container {
+    padding-left: 7em !important;
+    padding-right: 7em !important;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.font {
+    font-family: 'Comic Sans MS';
+}
+
+.nav-bk {
+    background: #5f2c82;
+}
+
+.nav-dropdown-bk {
+    background: #5f2c82;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.error{
+    color: red;
+}
+
+.btn-custom-upload {
+    border: 1px solid #469b88;
+    background: #dcf0eb;
+}
+
+.btn-add-new-custom {
+    float: right !important;
+}
+
+a:not([href]:not([tabindex])).btn-add-new-custom {
+    color: white !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+.crud-title {
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.wrapper {
+    padding-left: 10em;
+    padding-right: 10em;
+}

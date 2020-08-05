@@ -1,0 +1,29 @@
+﻿@model Domashna.Data.Entities.Genre
+@{
+    ViewData["Title"] = "Create";
+}
+<h1 class="text-center pt-5">Create</h1>
+<div class="container">
+    <h3 class="crud-title">Add a Genre</h3>
+    <hr />
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <form asp-action="Create" name="genrecreate">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Genre Name</label>
+                        <input asp-for="Name" class="form-control" placeholder="Enter Genre Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-block btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

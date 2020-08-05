@@ -1,0 +1,108 @@
+﻿@model Domashna.Models.RentingMovieViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="custom-container pt-5">
+    <h3>Renting Movie (@Model.AllMoviesAddedToCartByLoggedInUser.Count())</h3>
+    <div class="row">
+        <div class="col-12">
+            @foreach (var movie in Model.AllMoviesAddedToCartByLoggedInUser)
+            {
+                <div class="card mt-3">
+                    <div class="card-body row">
+                        <div class="col-2 col-md-2 borderStyle">
+                            <img src="~/images/@movie.PhotoURL" class="img-fluid" />
+                        </div>
+                        <div class="col-10 col-md-10">
+                            <h4 class="card-title"> @Html.DisplayFor(modelItem => movie.Title)</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-12">
+                                    <h6>Director: @Html.DisplayFor(modelItem => movie.DirectorName) </h6>
+                                    <h6>Genre: @Html.DisplayFor(modelItem => movie.GenreName)</h6>
+                                    <h6>IMDB Score: @Html.DisplayFor(modelItem => movie.IMBDScore)</h6>
+                                    <h6>Price: @Html.DisplayFor(modelItem => movie.Price) </h6>
+                                    <h6>Country: @Html.DisplayFor(modelItem => movie.Country)</h6>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <div class="row">
+                            <div class="col-9 col-md-5">
+
+                                <button class="btn btn-danger" onclick="DeleteItem(@movie.Id)">
+                                    <i class="fas fa-trash-alt"></i> &nbsp; Delete
+                                </button>
+                            </div>
+                            <div class="col-3 col-md-3 text-right">
+                                <h6 class="pt-1">Price: &#36; @Html.DisplayFor(modelItem => movie.Price)</h6>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h4 class="card-title">Order Summary</h4>
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Total</td>
+                                <td>$@Model.TotalPrice</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a href="#" class="btn btn-success btn-block"> <i class="far fa-credit-card"></i> &nbsp; Buy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function DeleteItem(id) {
+            $.ajax({
+                type: "POST",
+                url: "/RentingMovie/Delete/" + id,
+                success: function (data) {
+                    console.log(data);
+                    new Noty({
+                        type: 'warning',
+                        layout: 'bottomLeft',
+                        timeout: 3000,
+                        progressBar: true,
+                        text: 'Successfully Deleted Book: ' + data.data.title + ' From Wishlist',
+                        theme: 'sunset'
+                    }).show();
+
+                    setTimeout(function () {
+                        if (data) {
+                            window.location = data.url;
+                        }
+                    }, 3300);
+
+                },
+                error: function () {
+                    new Noty({
+                        type: 'error',
+                        layout: 'bottomLeft',
+                        timeout: 3000,
+                        progressBar: true,
+                        text: 'Error Delete Book From Wishlist',
+                        theme: 'sunset'
+                    }).show();
+                }
+            });
+        };
+    </script>
+
+}

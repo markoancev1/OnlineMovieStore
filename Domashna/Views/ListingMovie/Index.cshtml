@@ -1,0 +1,117 @@
+﻿@model Domashna.Models.MovieViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="bg-dark text-white text-center pt-5">Listing Movie</h1>
+
+<div class="custom-container">
+    <table class="table table-hover">
+        <thead>
+            
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.AllMoviesFromListingMovieByLoggedInUser)
+            {
+                <tr>
+                    <td>
+                        <img src="~/images/@item.PhotoURL" width="100" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DirectorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GenreName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-block btn-info"><i class="fas fa-info-circle"></i> &nbsp; Details</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-block btn-danger" onclick="DeleteItemFromListingMovie(@item.Id)">
+                            <i class="fas fa-trash-alt"></i> &nbsp; Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+            <tr class="total-style">
+                <td colspan="6"></td>
+                <td>Total:</td>
+                <td> &#36; @Html.DisplayFor(modelItem => modelItem.ListingMovieTotalPrice)</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="actionChooseModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="modalDialogStyle" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> <span id="detailsTitle"></span> Successfully Added Movies To Cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Choose option to continue:</h4>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <button type="button" class="btn btn-outline-secondary btn-block" id="stayToListingMovie" data-dismiss="modal">Stay to Listing Movie</button>
+                        </div>
+                      
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        function DeleteItemFromListingMovie(id) {
+            $.ajax({
+                type: "POST",
+                url: "/ListingMovie/Delete/" + id,
+                success: function (data) {
+             //       window.location.reload();
+                    new Noty({
+                        type: 'alert',
+                        layout: 'bottomLeft',
+                        timeout: 3000,
+                        progressBar: true,
+                        text: 'Successfully Deleted Movie: ' + data.data.title + ' From Listing Movie',
+                        theme: 'sunset'
+                    }).show();
+
+                    setTimeout(function () {
+                        if (data) {
+                            window.location = data.url;
+                        }
+                    }, 3300);
+                },
+                error: function () {
+                    new Noty({
+                        type: 'error',
+                        layout: 'bottomLeft',
+                        timeout: 500,
+                        progressBar: true,
+                        text: 'Error Delete Movie From Listing Movie',
+                        theme: 'sunset'
+                    }).show();
+                }
+            });
+        };
+    </script>
+}

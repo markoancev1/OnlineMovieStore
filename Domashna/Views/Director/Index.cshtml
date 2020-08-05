@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Domashna.Data.Entities.Director>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center font pt-5">Director's</h1>
+<hr>
+<p class="text-center font">
+    <a asp-action="Create">Create a New Director</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-center font">@Html.DisplayNameFor(model => model.Name)</th>
+            <th class="text-center font">@Html.DisplayNameFor(model => model.Country)</th>
+
+
+            <th class="text-center font">Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center font"> @Html.DisplayFor(modelitem => item.Name)</td>
+                <td class="text-center font"> @Html.DisplayFor(modelitem => item.Country)</td>
+
+
+                <td>
+                    <a class="table-action-btn btn btn-block btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-edit"></i>Edit</a>
+                    <a class="table-action-btn btn btn-block btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-cirle"></i>Details</a>
+                    <a class="table-action-btn btn btn-block btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-alt"></i>Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

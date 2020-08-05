@@ -1,0 +1,94 @@
+﻿@model Domashna.Data.Entities.Movie
+<h1 class="text-center pt-5">Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(x => Model.DirectorID, new SelectList(Model.DirectorName, "Value", "Text"),
+                htmlAttributes: new { @class = "form-control", id = "Director" })
+                <span asp-validation-for="DirectorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(x => Model.GenreID, new SelectList(Model.GenreName, "Value", "Text"),
+                htmlAttributes: new { @class = "form-control", id = "Genre" })
+                <span asp-validation-for="GenreID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IMBDScore" class="control-label"></label>
+                <input asp-for="IMBDScore" class="form-control" />
+                <span asp-validation-for="IMBDScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Language" class="control-label"></label>
+                <input asp-for="Language" class="form-control" />
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhotoURL" class="control-label"></label>
+                <input asp-for="PhotoURL" class="form-control" />
+                <span asp-validation-for="PhotoURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoldItems" class="control-label"></label>
+                <input asp-for="SoldItems" class="form-control" />
+                <span asp-validation-for="SoldItems" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $("#Genre").change(function () {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            var textSelected = optionSelected.text();
+            $("#GenreName").val(textSelected)
+            console.log($("#GenreName").val(textSelected));
+         //   console.log(valueSelected);
+         //   console.log(textSelected);
+        });
+        $("#Director").change(function () {
+            var optionSelected = $("option:selected", this);
+            var valueSelected = this.value;
+            var textSelected = optionSelected.text();
+            $("#DirectorName").val(textSelected)
+            console.log($("#DirectorName").val(textSelected));
+            //   console.log(valueSelected);
+            //   console.log(textSelected);
+        });
+    </script>
+}

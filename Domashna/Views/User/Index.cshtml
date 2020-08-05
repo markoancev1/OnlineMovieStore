@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+
+<h1 class="bg-dark text-white text-center pt-5">All Users</h1>
+
+<div>
+    <table class="table-responsive table-bordered border-0 center">
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th class="text-center font" colspan="2">
+                <a asp-action="Create" class="btn btn-block btn-success"><i class="fas fa-plus"></i>Create a User</a>
+            </th>
+        </tr>
+        <tr>
+            <th class="text-center font">ID</th>
+            <th class="text-center font">Name</th>
+            <th class="text-center font">Email</th>
+            <th class="text-center font" colspan="2">Actions</th>
+        </tr>
+        @foreach (Microsoft.AspNetCore.Identity.IdentityUser user in Model)
+        {
+    <tr>
+        <td class="text-center font">@user.Id</td>
+        <td class="text-center font">@user.UserName</td>
+        <td class="text-center font">@user.Email</td>
+
+        <td>
+            <a class="btn btn-primary btn-block" asp-action="Edit" asp-route-id="@user.Id">
+                <i class="fas fa-edit"></i> &nbsp; Edit
+            </a>
+        </td>
+        <td>
+            <form asp-action="Delete" asp-route-id="@user.Id" method="post">
+                <button type="submit" class="btn btn-block btn-danger">
+                    <i class="fas fa-trash-alt"></i> &nbsp; Delete
+                </button>
+            </form>
+        </td>
+    </tr>
+        }
+    </table>
+</div>

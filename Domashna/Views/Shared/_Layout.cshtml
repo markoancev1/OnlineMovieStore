@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OnlineMovieStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link href="~/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/noty/noty.css" rel="stylesheet" />
+    <link href="~/datatables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+</head>
+<body class="background">
+
+    <div>
+        <div class="container pt-5">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <header>
+
+        <nav class="navbar navbar-expand-lg  navbar-light nav-bk border-bottom box-shadow something">
+
+            <a class="navbar-brand text-white " asp-area="" asp-controller="Home" asp-action="Index">MA Store</a>
+            <button class="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-lg-inline-flex flex-lg-row-reverse">
+                <partial name="_LoginPartial" />
+                <ul class="navbar-nav flex-grow-1">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-white font" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+
+                    @if (ViewContext.HttpContext.User.IsInRole("admin") || ViewContext.HttpContext.User.IsInRole("editor"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-white font" asp-area="" asp-controller="Movie" asp-action="Index">Movie</a>
+                        </li>
+                    }
+                    @if (ViewContext.HttpContext.User.IsInRole("admin"))
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white font" asp-area="" asp-controller="Genre" asp-action="Index">Genre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white font" asp-area="" asp-controller="Director" asp-action="Index">Director</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white font" asp-area="" asp-controller="User" asp-action="Index">User</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+
+    <footer class="border-top footer text-white font nav-bk">
+        <div class="container text-center">
+            &copy; 2020 - MovieStore
+        </div>
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/js/form-validation.js"></script>
+
+    <script src="~/font-awesome/js/all.js"></script>
+
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/datatables/js/dataTables.bootstrap4.min.js"></script>
+
+    <script src="~/moment.js/moment.min.js"></script>
+    <script src="~/noty/noty.js"></script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
